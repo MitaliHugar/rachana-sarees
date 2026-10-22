@@ -1,0 +1,850 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rachana Sarees</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #fffaf3;
+            color: #32151d;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #65152d;
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: Georgia, serif;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            display: block;
+            color: #e9c477;
+            font: 10px Arial, sans-serif;
+            letter-spacing: 3px;
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: #e9c477;
+        }
+
+        .hero {
+            min-height: 570px;
+            padding: 70px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            background: linear-gradient(135deg, #fffaf3, #f5e3cf);
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .small-title {
+            color: #9b6830;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .hero h1 {
+            font-family: Georgia, serif;
+            font-size: clamp(40px, 6vw, 65px);
+            line-height: 1.1;
+            color: #561225;
+        }
+
+        .hero p {
+            margin-top: 20px;
+            font-size: 17px;
+            color: #705f63;
+            max-width: 550px;
+        }
+
+        .buttons {
+            margin-top: 28px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 13px 23px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 5px 8px 5px 0;
+            border: 2px solid #65152d;
+        }
+
+        .primary-btn {
+            background: #65152d;
+            color: white;
+        }
+
+        .primary-btn:hover {
+            background: #43101f;
+        }
+
+        .secondary-btn {
+            color: #65152d;
+        }
+
+        .secondary-btn:hover {
+            background: #65152d;
+            color: white;
+        }
+
+        .saree-design {
+            flex: 0 0 320px;
+            height: 420px;
+            border-radius: 160px 160px 20px 20px;
+            background:
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(255,255,255,0.12) 0,
+                    rgba(255,255,255,0.12) 4px,
+                    transparent 4px,
+                    transparent 20px
+                ),
+                linear-gradient(135deg, #7c1736, #c84968, #64132d);
+            position: relative;
+            box-shadow: 15px 20px 40px rgba(60,15,30,0.2);
+        }
+
+        .saree-design::before {
+            content: "";
+            position: absolute;
+            inset: 18px;
+            border: 2px solid #e9c477;
+            border-radius: 145px 145px 15px 15px;
+        }
+
+        .gold-border {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 65px;
+            height: 100%;
+            background: repeating-linear-gradient(
+                90deg,
+                #d7ad55 0,
+                #d7ad55 8px,
+                #7c1736 8px,
+                #7c1736 16px
+            );
+        }
+
+        .design-text {
+            position: absolute;
+            bottom: 35px;
+            left: 25px;
+            color: white;
+            font-family: Georgia, serif;
+            font-size: 21px;
+        }
+
+        section {
+            padding: 70px 7%;
+            scroll-margin-top: 90px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .section-title h2 {
+            font-family: Georgia, serif;
+            font-size: clamp(30px, 4vw, 42px);
+            color: #561225;
+        }
+
+        .section-title p {
+            margin-top: 8px;
+            color: #75676a;
+        }
+
+        .filters {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .filter-btn {
+            padding: 10px 18px;
+            margin: 5px;
+            border-radius: 25px;
+            border: 1px solid #c9b6a0;
+            background: white;
+            cursor: pointer;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #65152d;
+            color: white;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .product {
+            background: white;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .product:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+        }
+
+        .product-image {
+            height: 240px;
+            display: flex;
+            align-items: end;
+            padding: 15px;
+            color: white;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .saree1 { background: linear-gradient(135deg, #791733, #e1a64e); }
+        .saree2 { background: linear-gradient(135deg, #174b48, #d5ad5d); }
+        .saree3 { background: linear-gradient(135deg, #272c66, #9a3155); }
+        .saree4 { background: linear-gradient(135deg, #87532d, #e8c56e); }
+        .saree5 { background: linear-gradient(135deg, #53134d, #d65e89); }
+        .saree6 { background: linear-gradient(135deg, #15536a, #c99a45); }
+        .saree7 { background: linear-gradient(135deg, #71221d, #efc05d); }
+        .saree8 { background: linear-gradient(135deg, #263f2e, #b77c3b); }
+
+        .product-info {
+            padding: 18px;
+        }
+
+        .product-info h3 {
+            font-family: Georgia, serif;
+            font-size: 20px;
+        }
+
+        .price {
+            color: #65152d;
+            font-weight: bold;
+            margin: 8px 0 15px;
+        }
+
+        .order-btn {
+            display: block;
+            text-align: center;
+            padding: 10px;
+            background: #f6ecdf;
+            color: #65152d;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .order-btn:hover {
+            background: #65152d;
+            color: white;
+        }
+
+        .about {
+            background: #f5e9da;
+        }
+
+        .about-container {
+            display: flex;
+            align-items: center;
+            gap: 45px;
+        }
+
+        .about-box {
+            flex: 0 0 35%;
+            min-height: 300px;
+            background: #65152d;
+            color: white;
+            border-radius: 25px;
+            padding: 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .about-box .letter {
+            font-family: Georgia, serif;
+            font-size: 75px;
+            color: #e9c477;
+        }
+
+        .about-box h2,
+        .about-text h2 {
+            font-family: Georgia, serif;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h2 {
+            font-size: 36px;
+            color: #561225;
+            margin-bottom: 18px;
+        }
+
+        .about-text p {
+            color: #705f63;
+            margin-bottom: 15px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .feature {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .feature strong {
+            color: #65152d;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .contact {
+            background: #3d0e1c;
+            color: white;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-family: Georgia, serif;
+            font-size: clamp(30px, 4vw, 45px);
+        }
+
+        .contact p {
+            max-width: 600px;
+            margin: 15px auto 25px;
+            color: #ead9d9;
+        }
+
+        footer {
+            background: #210710;
+            color: white;
+            padding: 40px 7% 20px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 30px;
+        }
+
+        footer h3 {
+            color: #e9c477;
+            margin-bottom: 12px;
+        }
+
+        footer p {
+            margin: 8px 0;
+            color: #ead9d9;
+        }
+
+        footer a {
+            color: #ead9d9;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #e9c477;
+        }
+
+        .copyright {
+            text-align: center;
+            border-top: 1px solid #56303b;
+            margin-top: 30px;
+            padding-top: 20px;
+            color: #cdbfc2;
+        }
+
+        .whatsapp {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 55px;
+            height: 55px;
+            background: #25d366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 25px;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            z-index: 1000;
+        }
+
+        @media (max-width: 1000px) {
+            .products {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .hero {
+                flex-wrap: wrap;
+            }
+
+            .saree-design {
+                flex-basis: 280px;
+                height: 360px;
+            }
+        }
+
+        @media (max-width: 650px) {
+            header {
+                justify-content: center;
+                text-align: center;
+            }
+
+            nav {
+                justify-content: center;
+                gap: 12px;
+            }
+
+            .hero {
+                text-align: center;
+                justify-content: center;
+                padding-top: 50px;
+            }
+
+            .hero p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .saree-design {
+                flex-basis: 240px;
+                height: 320px;
+            }
+
+            .products {
+                grid-template-columns: 1fr;
+            }
+
+            .about-container {
+                flex-direction: column;
+            }
+
+            .about-box {
+                width: 100%;
+                flex-basis: auto;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo">
+            Rachana Sarees
+            <span>TRADITION • ELEGANCE</span>
+        </div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#collections">Sarees</a>
+            <a href="#return-policy">Returns</a>
+            <a href="#payments">Payments & GST</a>
+            <a href="#contact">Contact</a>
+            <a href="#about">About</a>
+        </nav>
+    </header>
+
+    <!-- HOME -->
+    <section class="hero" id="home">
+        <div class="hero-text">
+            <div class="small-title">A Celebration of Indian Tradition</div>
+
+            <h1>Elegance Woven in Every Thread</h1>
+
+            <p>
+                Discover beautiful sarees for weddings, festivals,
+                celebrations and everyday elegance at Rachana Sarees.
+                Explore our collection and contact us for availability.
+            </p>
+
+            <div class="buttons">
+                <a href="#collections" class="btn primary-btn">
+                    Explore Sarees
+                </a>
+
+                <a href="#contact" class="btn secondary-btn">
+                    Contact Us
+                </a>
+            </div>
+        </div>
+
+        <div class="saree-design">
+            <div class="gold-border"></div>
+            <div class="design-text">Tradition Meets Elegance</div>
+        </div>
+    </section>
+
+    <!-- SAREE COLLECTIONS -->
+    <section id="collections">
+        <div class="section-title">
+            <h2>Our Saree Collection</h2>
+            <p>Find a beautiful style for every occasion.</p>
+        </div>
+
+        <div class="filters">
+            <button class="filter-btn active" onclick="filterSarees('all', this)">All Sarees</button>
+            <button class="filter-btn" onclick="filterSarees('silk', this)">Silk</button>
+            <button class="filter-btn" onclick="filterSarees('designer', this)">Designer</button>
+            <button class="filter-btn" onclick="filterSarees('cotton', this)">Cotton</button>
+            <button class="filter-btn" onclick="filterSarees('daily', this)">Daily Wear</button>
+        </div>
+
+        <div class="products">
+
+            <div class="product silk">
+                <div class="product-image saree1">ROYAL COLLECTION</div>
+                <div class="product-info">
+                    <h3>Traditional Silk Saree</h3>
+                    <div class="price">₹2,499 onwards</div>
+                    <a class="order-btn" href="https://wa.me/919886980026?text=Hi%20Rachana%20Sarees%2C%20I%20am%20interested%20in%20the%20Traditional%20Silk%20Saree.">Enquire on WhatsApp</a>
+                </div>
+            </div>
+
+            <div class="product designer">
+                <div class="product-image saree2">ELEGANT STYLE</div>
+                <div class="product-info">
+                    <h3>Designer Saree</h3>
+                    <div class="price">₹1,899 onwards</div>
+                    <a class="order-btn" href="https://wa.me/919886980026?text=Hi%20Rachana%20Sarees%2C%20I%20am%20interested%20in%20the%20Designer%20Saree.">Enquire on WhatsApp</a>
+                </div>
+            </div>
+
+            <div class="product silk">
+                <div class="product-image saree3">FESTIVE FAVOURITE</div>
+                <div class="product-info">
+                    <h3>Kanjivaram Style Saree</h3>
+                    <div class="price">₹3,499 onwards</div>
+                    <a class="order-btn" href="https://wa.me/919886980026?text=Hi%20Rachana%20Sarees%2C%20I%20am%20interested%20in%20the%20Kanjivaram%20Style%20Saree.">Enquire on WhatsApp</a>
+                </div>
+            </div>
+
+            <div class="product cotton">
+                <div class="product-image saree4">COMFORT & STYLE</div>
+                <div class="product-info">
+                    <h3>Cotton Saree</h3>
+                    <div class="price">₹999 onwards</div>
+                    <a class="order-btn" href="https://wa.me/919886980026?text=Hi%20Rachana%20Sarees%2C%20I%20am%20interested%20in%20the%20Cotton%20Saree.">Enquire on WhatsApp</a>
+                </div>
+            </div>
+
+            <div class="product designer">
+                <div class="product-image saree5">PARTY COLLECTION</div>
+                <div class="product-info">
+                    <h3>Party Wear Saree</h3>
+                    <div class="price">₹1,599 onwards</div>
+                    <a class="order-btn" href="https://wa.me/919886980026?text=Hi%20Rachana%20Sarees%2C%20I%20am%20interested%20in%20the%20Party%20Wear%20Saree.">Enquire on WhatsApp</a>
+                </div>
+            </div>
+
+            <div class="product silk">
+                <div class="product-image saree6">PREMIUM RANGE</div>
+                <div class="product-info">
+                    <h3>Soft Silk Saree</h3>
+                    <div class="price">₹1,799 onwards</div>
+                    <a class="order-btn" href="https://wa.me/919886980026?text=Hi%20Rachana%20Sarees%2C%20I%20am%20interested%20in%20the%20Soft%20Silk%20Saree.">Enquire on WhatsApp</a>
+                </div>
+            </div>
+
+            <div class="product designer">
+                <div class="product-image saree7">TIMELESS BEAUTY</div>
+                <div class="product-info">
+                    <h3>Temple Border Saree</h3>
+                    <div class="price">₹2,199 onwards</div>
+                    <a class="order-btn" href="https://wa.me/919886980026?text=Hi%20Rachana%20Sarees%2C%20I%20am%20interested%20in%20the%20Temple%20Border%20Saree.">Enquire on WhatsApp</a>
+                </div>
+            </div>
+
+            <div class="product cotton daily">
+                <div class="product-image saree8">EVERYDAY COMFORT</div>
+                <div class="product-info">
+                    <h3>Classic Daily Wear</h3>
+                    <div class="price">₹749 onwards</div>
+                    <a class="order-btn" href="https://wa.me/919886980026?text=Hi%20Rachana%20Sarees%2C%20I%20am%20interested%20in%20the%20Classic%20Daily%20Wear%20Saree.">Enquire on WhatsApp</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+   
+    <!-- RETURN POLICY -->
+    <section class="about" id="return-policy">
+        <div class="section-title">
+            <h2>Return & Exchange Policy</h2>
+            <p>Please read the store's confirmed policy before purchasing.</p>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <strong>Check Your Purchase</strong>
+                Please check your product and bill at the time of purchase.
+            </div>
+
+            <div class="feature">
+                <strong>Damaged or Incorrect Items</strong>
+                Contact the store with your bill and product details if an item is damaged or incorrect.
+            </div>
+
+            <div class="feature">
+                <strong>Returns & Exchanges</strong>
+                Returns and exchanges are subject to the store's actual policy and applicable consumer laws.
+            </div>
+
+            <div class="feature">
+                <strong>Need Help?</strong>
+                Contact the store team to discuss a return or exchange request.
+            </div>
+        </div>
+    </section>
+
+    <!-- PAYMENT & GST -->
+    <section id="payments">
+        <div class="section-title">
+            <h2>Payment & GST Information</h2>
+            <p>Information about billing and available payment methods.</p>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <strong>Debit Card Payments</strong>
+                Debit cards are accepted only if the facility is available at the store. Please confirm accepted payment methods before purchasing.
+            </div>
+
+            <div class="feature">
+                <strong>GST Details</strong>
+                GSTIN: Add the business's valid GST identification number here, if registered.
+            </div>
+
+            <div class="feature">
+                <strong>Billing & Invoice</strong>
+                A bill or tax invoice will be provided as applicable to the transaction and the business's GST status.
+            </div>
+
+            <div class="feature">
+                <strong>Customer Support</strong>
+                Contact the store for questions about payments, billing or GST details.
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
+        <h2>Ready to Find Your Favourite Saree?</h2>
+
+        <p>
+            Visit Rachana Sarees or message us on WhatsApp
+            to ask about our saree collection and daily essentials.
+        </p>
+
+        <a
+            href="https://wa.me/919886980026?text=Hi%20Rachana%20Sarees%2C%20I%20would%20like%20to%20know%20about%20your%20products."
+            class="btn"
+            style="background:white;color:#65152d;"
+        >
+            WhatsApp Us
+        </a>
+    </section>
+     <!-- ABOUT -->
+    <section class="about" id="about">
+        <div class="about-container">
+            <div class="about-box">
+                <div class="letter">R</div>
+                <h2>Rachana Sarees</h2>
+                <p>Where Indian tradition meets modern elegance.</p>
+            </div>
+
+            <div class="about-text">
+                <div class="small-title">Why Choose Us</div>
+                <h2>More Than a Saree. It's Your Moment.</h2>
+
+                <p>
+                    At Rachana Sarees, we believe the right saree
+                    makes every occasion feel special.
+                </p>
+
+                <p>
+                    Explore beautiful colours, elegant styles and
+                    collections suitable for different occasions.
+                    Contact us for product details and availability.
+                </p>
+
+                <div class="features">
+                    <div class="feature">
+                        <strong>Curated Collections</strong>
+                        Styles for different occasions.
+                    </div>
+
+                    <div class="feature">
+                        <strong>Friendly Guidance</strong>
+                        Help choosing colours and designs.
+                    </div>
+
+                    <div class="feature">
+                        <strong>Quality First</strong>
+                        Product details available on enquiry.
+                    </div>
+
+                    <div class="feature">
+                        <strong>Easy Enquiries</strong>
+                        Contact us for availability and pricing.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-container">
+
+            <div>
+                <h3>Rachana Sarees</h3>
+                <p>Traditional beauty, thoughtfully selected.</p>
+            </div>
+
+            <div>
+                <h3>Explore</h3>
+                <p><a href="#home">Home</a></p>
+                <p><a href="#collections">Saree Collections</a></p>
+                <p><a href="#about">About Us</a></p>
+                <p><a href="#return-policy">Return Policy</a></p>
+                <p><a href="#payments">Payment & GST</a></p>
+                <p><a href="#contact">Contact</a></p>
+            </div>
+
+            <div>
+                <h3>Store Details</h3>
+                <p>Address: Add your shop address</p>
+                <p>Phone: +91 9886980026</p>
+                <p>Opening Hours: Add your shop timings</p>
+            </div>
+
+        </div>
+
+        <div class="copyright">
+            &copy; 2026 Rachana Sarees. All Rights Reserved.
+        </div>
+    </footer>
+
+    <!-- FLOATING WHATSAPP BUTTON -->
+    <a
+        href="https://wa.me/919886980026?text=Hi%20Rachana%20Sarees%2C%20I%20would%20like%20to%20know%20about%20your%20products."
+        class="whatsapp"
+        aria-label="Contact Rachana Sarees on WhatsApp"
+        title="Chat on WhatsApp"
+    >
+        &#9742;
+    </a>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        function filterSarees(category, clickedButton) {
+            const products = document.querySelectorAll(
+                "#collections .product"
+            );
+
+            const buttons = document.querySelectorAll(".filter-btn");
+
+            buttons.forEach(function(button) {
+                button.classList.remove("active");
+            });
+
+            clickedButton.classList.add("active");
+
+            products.forEach(function(product) {
+                if (
+                    category === "all" ||
+                    product.classList.contains(category)
+                ) {
+                    product.style.display = "block";
+                } else {
+                    product.style.display = "none";
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
